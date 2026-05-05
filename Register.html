@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* Header (Image + Title) */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 120px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #b11036, #1866b4, #0aa8d8);
+            background-size: 200% auto;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+
+        /* Register Box */
+        .box {
+            width: 320px;
+            padding: 25px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #ddd;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(to right, #ff7a18, #ffb347);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+     <nav>
+    <div class="header">
+        <img src="./Logo.png" alt="logo">
+        <h1>Aj Theme Park</h1>
+    </div>
+    </nav>
+
+    <!-- Register Form -->
+    <div class="box">
+        <h2>Register</h2>
+
+   <form onsubmit="registerUser(event)">
+            <input type="text"     id="uname"    placeholder="Username" required>
+            <span class="err"      id="uname-error"></span>
+
+            <input type="text"     id="name" placeholder="Full Name" required>
+            <span class="err"      id="name-error"></span>
+
+            <input type="email"    id="email"    placeholder="Email Address" required>
+            <span class="err"      id="email-error"></span>
+
+            <input type="tel"      id="phone"    placeholder="Phone Number (10 digits)">
+            <span class="err"      id="phone-error"></span>
+
+            <input type="password" id="password" placeholder="Password (min 6 chars)" required>
+            <span class="err"      id="password-error"></span>
+
+            <button type="submit" id="reg-btn">Register</button>
+        </form>
+
+        <!-- Link to Login -->
+        <p class="login-link">Already have an account? <a href="./booking.html">Login here</a></p>
+    </div>
+
+    </div>
+
+    <script>
+        function registerUser(event) {
+            event.preventDefault();
+
+            let uname = document.getElementById("uname").value.trim();
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+             let phone = document.getElementById("phone").value.trim();
+            let password = document.getElementById("password").value.trim();
+
+            console.log("Username:", uname);
+            console.log("Name:", name);
+            console.log("Email:", email);
+            console.log("Password:", password);
+
+             alert("Registration Successful ");
+             ["uname","name","email","phone","password"].forEach(id =>
+                document.getElementById(id + "-error").textContent = "");
+
+            let valid = true;
+            const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRx = /^[0-9]{10}$/;
+
+            if (!uname) { document.getElementById("uname-error").textContent = "Username is required."; valid=false; }
+            if (!name) { document.getElementById("name-error").textContent = "Full name is required."; valid=false; }
+            if (!email || !emailRx.test(email)) { document.getElementById("email-error").textContent = "Enter a valid email."; valid=false; }
+            if (phone && !phoneRx.test(phone)) { document.getElementById("phone-error").textContent = "Enter a valid 10-digit number."; valid=false; }
+            if (password.length < 6) { document.getElementById("password-error").textContent = "Password must be at least 6 characters."; valid=false; }
+
+            if (!valid) return;
+
+            // Check duplicates in localStorage
+            const users = JSON.parse(localStorage.getItem("aj_users")) || [];
+            if (users.find(u => u.uname === uname)) {
+                document.getElementById("uname-error").textContent = "Username already taken."; return;
+            }
+            if (users.find(u => u.email === email)) {
+                document.getElementById("email-error").textContent = "Email already registered."; return;
+            }
+
+            // Save user to localStorage
+            users.push({ uname, name, email, phone, password, registeredOn: new Date().toISOString() });
+            localStorage.setItem("aj_users", JSON.stringify(users));
+
+            const btn = document.getElementById("reg-btn");
+            btn.disabled = true;
+            btn.textContent = "Registering…";
+
+            //  Redirect to booking.html login tab after 1s
+            setTimeout(() => {
+                window.location.href = "./booking.html?registered=true";
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>

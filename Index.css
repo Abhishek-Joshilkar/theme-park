@@ -1,0 +1,424 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+    background: #79b1e9; /* Softer light gray for modern look */
+}
+body {
+    background: #79b1e9; /* Softer light gray for modern look */
+    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Nav Bar */
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=DM+Sans:wght@400;500&display=swap'); */
+
+/* ── Navbar ── */
+#main-navbar {
+    background: rgba(15, 15, 15, 0.8) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Logo box */
+.nav-logo-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff416c, #ff8c00);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    color: #fff;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+/* Brand text */
+#logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    background: linear-gradient(90deg, #ff416c, #ff8c00, #1e90ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 0.5px;
+}
+
+/* Desktop nav pills */
+.nav-pill {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+}
+
+.nav-pill:hover,
+.nav-pill.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Book Now button */
+.btn-book {
+    background: linear-gradient(90deg, #ff416c, #ff8c00);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.4px;
+    transition: opacity 0.2s, transform 0.15s;
+    white-space: nowrap;
+}
+
+.btn-book:hover {
+    opacity: 0.88;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* Hamburger toggle */
+.custom-tog {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.custom-tog span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.2s;
+}
+
+/* ── Mobile Offcanvas ── */
+.custom-canvas {
+    background: #111 !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.07) !important;
+    width: 280px !important;
+}
+
+.custom-canvas .offcanvas-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 18px 20px;
+}
+
+.canvas-close {
+    background: rgba(255, 255, 255, 0.07);
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.15s;
+}
+
+.canvas-close:hover { background: rgba(255, 255, 255, 0.12); }
+
+.canvas-section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: rgba(255, 255, 255, 0.28);
+    padding: 16px 20px 6px;
+    text-transform: uppercase;
+}
+
+.canvas-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.65);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+.canvas-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
+
+.canvas-arrow {
+    font-size: 16px;
+    opacity: 0.35;
+}
+
+.canvas-book {
+    color: #ff8c00 !important;
+    font-weight: 700;
+}
+
+.canvas-book .canvas-arrow { opacity: 1; color: #ff8c00; }
+
+.canvas-badge {
+    font-size: 9px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff416c, #ff8c00);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 6px;
+    letter-spacing: 0.8px;
+}
+
+
+
+/* ── Welcome Section ── */
+#Welcome {
+    margin-top: 80px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#Welcome h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem); /* Responsive font size */
+    font-weight: 900;
+    background: linear-gradient(90deg, #ff416c, #ff8c00, #1e90ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.carousel-item img {
+   height: 500px;
+    object-fit: cover; /* Prevents stretching */
+    border-radius: 20px;
+}
+@media (max-width: 991px) {
+    #Welcome { margin-top: 100px; }
+    .carousel-item img { height: 300px; }
+}
+
+/* About Section*/
+#about {
+    
+    padding: 70px 20px;
+    background: linear-gradient(160deg, #54a2d6 0%, #887f7f 100%);
+}
+
+#logo2 {
+    height: 300px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 24px rgba(30, 144, 255, 0.25));
+    transition: transform 0.3s ease;
+}
+
+#logo2:hover {
+    transform: scale(1.05);
+}
+
+#about-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 15px;
+}
+
+#about-title span {
+    background: linear-gradient(135deg, #ff416c, #1e90ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+#about-desc {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+#about-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 25px;
+}
+
+#about-list li {
+    font-size: 1rem;
+    color: #333;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0eaf5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#book-btn {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#book-btn:hover{
+    transform: scale(1.05);
+}
+
+/*Card Css*/
+/* 1. Base Card Styling & Smooth Transitions */
+.card.shadow {
+    border: none !important;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 24px !important;
+}
+
+/* 2. Interactive Glow Effect on Hover */
+.card.shadow:hover {
+    transform: translateY(-10px);
+    /* Soft blue-gold glow for a "magical" feel */
+    box-shadow: 0 15px 35px rgba(0, 123, 255, 0.2), 
+                0 5px 15px rgba(255, 193, 7, 0.15) !important;
+}
+
+/* 3. Outer Neon Border Glow (Optional - for a fantasy feel) */
+.card.shadow::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 1rem; /* matches rounded-4 */
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.card.shadow:hover::after {
+    opacity: 1;
+}
+
+/* 4. Icon Glow Animation */
+.bi {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.card:hover .bi {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 5px currentColor);
+}
+
+/* 5. Specific Glow for the Mystik Islands (Gold/Fire) */
+.text-danger i, .text-warning i {
+    filter: drop-shadow(0 0 2px rgba(220, 53, 69, 0.5));
+}
+
+/* 6. Specific Glow for the Water Park (Blue/Cyan) */
+.text-primary i, .text-info i {
+    filter: drop-shadow(0 0 2px rgba(13, 110, 253, 0.5));
+}
+.bg-fire-glow:hover {
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.4) !important;
+}
+/* Magic Kingdom (Fantasy) - Sparkly Gold */
+.bg-magic-glow {
+    background: linear-gradient(135deg, #fff1e6, #ffe7cc);
+    border-color: #ffc107 !important;
+}
+.bg-magic-glow:hover {
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.3) !important;
+    border-color: #ff9800 !important;
+}
+
+/* Lost Jungle (Adventure) - Deep Green */
+.bg-jungle-glow {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border-color: #2e7d32 !important;
+}
+.bg-jungle-glow:hover {
+    box-shadow: 0 0 20px rgba(46, 125, 50, 0.3) !important;
+    border-color: #1b5e20 !important;
+}
+
+/* Starport Cosmos (Sci-Fi) - Neon Blue */
+.bg-space-glow {
+    background: linear-gradient(135deg, #e1f5fe, #b3e5fc);
+    border-color: #0277bd !important;
+}
+.bg-space-glow:hover {
+    box-shadow: 0 0 20px rgba(2, 119, 189, 0.3) !important;
+    border-color: #01579b !important;
+}
+
+
+
+/* Pricing Section Custom Styles */
+#pricing {
+    background-color: #f8fbff;
+}
+
+.pricing-card {
+    transition: all 0.3s ease;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+}
+
+.featured-price {
+    transform: scale(1.05);
+    z-index: 1;
+}
+
+/* Ensure the featured card stays prominent even on mobile */
+@media (max-width: 768px) {
+    .featured-price {
+        transform: scale(1);
+        margin: 20px 0;
+    }
+}
+
+.pricing-card ul li {
+    padding: 8px 0;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pricing-card .card-header {
+    border: none;
+    font-weight: 700;
+    letter-spacing: 1px;
+}

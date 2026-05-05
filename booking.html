@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking & Manage - AJ Park</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Booking.css">
+</head>
+<!-- top navbar of box -->
+<body class="bg-light">
+
+    <!-- <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="Index.htm">
+                <img src="./Logo.png" alt="logo">
+                <span id="logo-text">AJ Park</span>
+            </a>
+        </div>
+    </nav> -->
+
+     <div id="navbar">
+        <script>
+            loadNavbar();
+        </script>
+     </div>
+    <script src="navbar.js"></script>
+
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-header bg-white border-0 pt-4">
+                        <ul class="nav nav-pills nav-fill" id="bookingTab" role="tablist">
+                            <li class="nav-item">
+                                <button class="nav-link active fw-bold" id="login-tab"
+                                    data-bs-toggle="tab" data-bs-target="#login"
+                                    type="button">Login</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link fw-bold" id="book-tab"
+                                    data-bs-toggle="tab" data-bs-target="#book"
+                                    type="button">Book Tickets</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link fw-bold" id="cancel-tab"
+                                    data-bs-toggle="tab" data-bs-target="#cancel"
+                                    type="button">Cancel/Modify</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body p-4 p-md-5">
+                        <div class="tab-content">
+
+                            <!-- ── LOGIN TAB ── -->
+                            <div class="tab-pane fade show active" id="login">
+                                <h3 class="text-center mb-4">Welcome Back!</h3>
+                                <form onsubmit="loginUser(event)">
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control"
+                                            placeholder="name@example.com" id="username">
+                                        <!-- Error message for email -->
+                                        <small id="email-error" class="text-danger d-none"></small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" class="form-control"
+                                            placeholder="Enter password" id="password">
+                                        <!-- Error message for password -->
+                                        <small id="password-error" class="text-danger d-none"></small>
+                                    </div>
+
+                                    <button type="submit"
+                                        class="btn btn-primary w-100 py-2 mt-2">Sign In</button>
+
+                                    <p class="text-center mt-3 small">
+                                        Don't have an account?
+                                        <a href="./Register.html">Register here</a>
+                                    </p>
+                                </form>
+                            </div>
+
+                            <!-- ── BOOK TICKETS TAB ── -->
+                            <div class="tab-pane fade" id="book">
+                                <h3 class="text-center mb-4">Plan Your Visit</h3>
+                                <form oninput="calculateTotal()" onsubmit="handleBooking(event)">
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Visit Date</label>
+                                        <input type="date" class="form-control" id="date">
+                                        <!-- Error message for date -->
+                                        <small id="date-error" class="text-danger d-none"></small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Ticket Type</label>
+                                        <select class="form-select" id="ticket">
+                                            <option value="899">Water Park (₹899)</option>
+                                            <option value="799">Amusement Park (₹799)</option>
+                                            <option value="1499">Combo Deal (₹1499)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Adults</label>
+                                        <input type="number" class="form-control"
+                                            id="adults" value="1" min="1">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Children <small class="text-muted">(Half price)</small></label>
+                                        <input type="number" class="form-control"
+                                            id="children" value="0" min="0">
+                                    </div>
+
+                                    <!-- Live price breakdown -->
+                                    <div id="price-summary"
+                                        class="border rounded-3 p-3 mb-3 bg-white small">
+                                    </div>
+
+                                    <h5 class="text-center mb-3">
+                                        Total: ₹<span id="total">899</span>
+                                    </h5>
+
+                                    <button type="submit"
+                                        class="btn btn-success w-100 py-2">
+                                        <i class="bi bi-check-circle me-2"></i>Confirm Booking
+                                    </button>
+
+                                </form>
+
+                                <!-- Booking confirmation card appears here -->
+                                <div id="booking-confirm"></div>
+                            </div>
+
+                            <!-- ── CANCEL / MODIFY TAB ── -->
+                            <div class="tab-pane fade" id="cancel">
+                                <h3 class="text-center mb-4 text-danger">Manage Booking</h3>
+                                <p class="text-muted text-center mb-4 small">
+                                    Enter your Booking ID to view details or request a cancellation.
+                                </p>
+
+                                <form onsubmit="findBooking(event)">
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Booking ID / PNR</label>
+                                        <input type="text" class="form-control"
+                                            id="booking-id" placeholder="Ex: AJ-123456">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Registered Phone Number</label>
+                                        <input type="tel" class="form-control"
+                                            id="phone" placeholder="+91">
+                                    </div>
+
+                                    <button type="submit"
+                                        class="btn btn-outline-dark w-100 py-2">
+                                        <i class="bi bi-search me-2"></i>Find My Booking
+                                    </button>
+
+                                    <!-- Booking details result appears here -->
+                                    <div id="booking-result"></div>
+
+                                    <div class="mt-4 p-3 bg-light rounded border border-warning">
+                                        <h6 class="fw-bold">
+                                            <i class="bi bi-shield-exclamation text-warning me-2"></i>
+                                            Cancellation Policy
+                                        </h6>
+                                        <ul class="mb-0 text-muted" style="font-size: 0.85rem;">
+                                            <li>Free cancellation up to 48 hours before the visit.</li>
+                                            <li>50% refund for cancellations within 24–48 hours.</li>
+                                            <li>No refund for same-day cancellations or no-shows.</li>
+                                        </ul>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Booking.js"></script>
+
+    <!-- Run price calculator on page load -->
+    <script>
+        document.addEventListener("DOMContentLoaded", calculateTotal);
+    </script>
+
+</body>
+</html>

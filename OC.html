@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AJ Park</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Oc.css">
+</head>
+<body>
+   
+   <section>  
+<div class="container my-5">
+    <div class="card shadow border-0 rounded-4 overflow-hidden">
+        <div class="row g-0">
+            <div class="col-lg-4 bg-primary text-white p-4 p-lg-5">
+                <h3 class="fw-bold mb-4">Get In Touch</h3>
+                <p class="opacity-75 mb-5">Have a question about your adventure? Our park rangers are ready to help!</p>
+                
+                <div class="d-flex mb-4">
+                    <i class="bi bi-geo-alt-fill fs-4 me-3 text-warning"></i>
+                    <div>
+                        <h6 class="mb-0">Location</h6>
+                        <small class="opacity-75">xyz, Pune, Maharashtra 411017</small>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-4">
+                    <i class="bi bi-telephone-fill fs-4 me-3 text-warning"></i>
+                    <div>
+                        <h6 class="mb-0">Phone</h6>
+                        <small class="opacity-75">+91(456)ISLAND-FUN</small>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-5">
+                    <i class="bi bi-envelope-at-fill fs-4 me-3 text-warning"></i>
+                    <div>
+                        <h6 class="mb-0">Email</h6>
+                        <small class="opacity-75">help@Ajpark.com</small>
+                    </div>
+                </div>
+
+                <h5 class="fw-bold">Follow Us</h5>
+                <div class="d-flex gap-3 fs-4">
+                    <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-8 bg-light p-4 p-lg-5">
+                <form id="contactForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">First Name</label>
+                            <input type="text" id="firstName" class="form-control rounded-3" placeholder="Explorer name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Email Address</label>
+                            <input type="email" id="email" class="form-control rounded-3" placeholder="name@example.com" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Inquiry Type</label>
+                            <select id="inquiryType" class="form-select rounded-3">
+                                <option>General Inquiry</option>
+                                <option>Group Bookings</option>
+                                <option>Lost & Found</option>
+                                <option>Special Events</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Your Message</label>
+                            <textarea id="message" class="form-control rounded-3" rows="4" placeholder="How can we help?" required></textarea>
+                        </div>
+                        <div class="col-12 mt-4 text-end">
+                            <button type="submit" class="btn btn-primary px-5 py-2 rounded-pill shadow">Send Message <i class="bi bi-send-fill ms-2"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+    <div class="mt-5">
+        <h4 class="fw-bold mb-3">Recent Inquiries</h4>
+        <div id="displayArea" class="row g-3">
+            </div>
+        <div class="text-center mt-3">
+            <button class="btn btn-outline-danger btn-sm" onclick="clearStorage()">Clear All Records</button>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="bg-light text-center py-3 border-top">
+        <a  class="active" href="./Index.htm">Home</a>
+        <p class="small text-muted mb-0">&copy; 2024 AJ Park. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- javascript code start -->
+<script>
+    const contactForm = document.getElementById('contactForm');
+    const displayArea = document.getElementById('displayArea');
+
+    // 1. Load data from Local Storage when page opens
+    window.onload = function() {
+        showStoredData();
+    };
+
+    // 2. Handle Form Submission
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get values
+        const inquiryData = {
+            name: document.getElementById('firstName').value,
+            email: document.getElementById('email').value,
+            type: document.getElementById('inquiryType').value,
+            message: document.getElementById('message').value,
+            date: new Date().toLocaleString()
+        };
+
+        // Get existing data from storage or start new array
+        let allInquiries = JSON.parse(localStorage.getItem('parkInquiries')) || [];
+        
+        // Add new inquiry to the beginning
+        allInquiries.unshift(inquiryData);
+
+        // Save back to local storage
+        localStorage.setItem('parkInquiries', JSON.stringify(allInquiries));
+
+        // Reset form and update display
+        contactForm.reset();
+        showStoredData();
+        alert("Inquiry saved to Local Storage!");
+    });
+
+    // 3. Function to display the data
+    function showStoredData() {
+        const data = JSON.parse(localStorage.getItem('parkInquiries')) || [];
+        displayArea.innerHTML = ""; // Clear current view
+
+        if (data.length === 0) {
+            displayArea.innerHTML = `<p class="text-muted">No inquiries found in storage.</p>`;
+            return;
+        }
+
+        data.forEach((item) => {
+            const card = `
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3">
+                        <div class="card-body">
+                            <span class="badge bg-info text-dark mb-2">${item.type}</span>
+                            <h6 class="fw-bold mb-1">${item.name}</h6>
+                            <p class="text-muted small mb-2">${item.email}</p>
+                            <hr>
+                            <p class="small text-secondary">"${item.message}"</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <small class="text-muted" style="font-size: 10px;">Submitted: ${item.date}</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+            displayArea.innerHTML += card;
+        });
+    }
+
+    // 4. Clear storage function
+    function clearStorage() {
+        if(confirm("Are you sure you want to delete all stored inquiries?")) {
+            localStorage.removeItem('parkInquiries');
+            showStoredData();
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
